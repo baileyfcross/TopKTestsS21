@@ -6,7 +6,7 @@ import java.util.Comparator;
  * @author Logan Belak and Bailey Cross
  * @version Spring 2021
  */
-public class TestsLJBBFC 
+public class TestsLJBBFC implements Animal
 {
     /**
     main method to try out the TopK
@@ -16,7 +16,7 @@ public class TestsLJBBFC
     public static void main(String args[]) {
         TopK<Integer> thebest = new TopKJDTRefSol<Integer>(5, Comparator.naturalOrder());
         TopK<String> thebestString = new TopKJDTRefSol<String>(3, Comparator.naturalOrder());
-        //TopK<Student> thebestE = new TopKJDTRefSol<String>(3, Comparator.naturalOrder());
+        TopK<Animal> thebestAnimal = new TopKJDTRefSol<Animal>(3, topKWeight);
 
         //Integer
         thebest.add(5);
@@ -45,5 +45,8 @@ public class TestsLJBBFC
         thebestString.add("P");
         thebestString.add("H");
         System.out.println("After clearing, repopulating with 6 entries for String: " + thebestString);
+        
+        //Animal
+        thebestAnimal.setWeight(2.2);
     }
 }
