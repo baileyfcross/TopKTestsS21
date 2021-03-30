@@ -7,6 +7,7 @@ import java.util.Comparator;
  */
 public class TestsGCV
 {
+
     public static void main(String args[])
     {
         TopKJDTRefSol<Double> dubOne = new TopKJDTRefSol<Double>(5, Comparator.naturalOrder()); 
@@ -84,5 +85,46 @@ public class TestsGCV
         System.out.println("Actual: " + strOne);
         System.out.println();
 
+        TopKJDTRefSol<ValuePair> vp = new TopKJDTRefSol<ValuePair>(6, new Comparator<ValuePair>(){
+                    public int compare(ValuePair item, ValuePair other){
+                        return other.getN() - item.getN();
+                    }
+
+                });
+
+        vp.add(new ValuePair(12, 2));
+        vp.add(new ValuePair(1, 3));
+        vp.add(new ValuePair(22, 0));
+        vp.add(new ValuePair(13, 2));
+        vp.add(new ValuePair(15, 1));
+        vp.add(new ValuePair(19, 8));
+        vp.add(new ValuePair(23, 7));
+        vp.add(new ValuePair(12, 5));
+        vp.add(new ValuePair(222, 3));
+
+        System.out.println("Expected: Sequence: 0 Length: 22 Sequence: 1 Length: 15 Sequence: 2 Length: 12 Sequence: 2 Length: 13 Sequence: 3 Length: 1 Sequence: 3 Length: 222");
+        System.out.println("Actual: " + vp);
+        System.out.println();
+    }
+}
+class ValuePair {
+    private int length;
+    private int n;
+    public ValuePair(int length, int n) {
+        this.length = length;
+        this.n = n;
+    }
+
+    public int getLength(){
+        return length;
+    }
+
+    public int getN(){
+        return n;
+    }
+
+    @Override
+    public String toString() {
+        return "Sequence: " + n + " Length: " +   length;
     }
 }
