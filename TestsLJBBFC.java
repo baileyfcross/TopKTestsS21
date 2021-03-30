@@ -17,7 +17,7 @@ public class TestsLJBBFC
     public static void main(String args[]) {
         TopK<Integer> thebest = new TopKJDTRefSol<Integer>(5, Comparator.naturalOrder());
         TopK<String> thebestString = new TopKJDTRefSol<String>(3, Comparator.naturalOrder());
-        TopK<Student> thebestAnimal = new TopKJDTRefSol<Student>(3, topKWeight);
+        //TopK<Student> thebestAnimal = new TopKJDTRefSol<Student>(3, topKWeight);
 
         //Integer
         thebest.add(5);
@@ -48,19 +48,10 @@ public class TestsLJBBFC
         System.out.println("After clearing, repopulating with 6 entries for String: " + thebestString);
 
         //Animal
-        thebestAnimal.setWeight(2.2);
+        //thebestAnimal.setWeight(2.2);
     }
 }
 
-/**
- * Demonstrating a simple abstract class
- *
- * Jim Teresco, Siena College, Computer Science 225, Spring 2017
- * Based heavily on example from Darren Lim
- *
- * @author Jim Teresco
- * @version Spring 2020
- */
 /* The class is declared as abstract to indicate that it will include
  * one or more abstract methods.
  */
@@ -77,13 +68,6 @@ abstract class Student
         name = newName;
     }
 
-    Comparator<Student> topKName = new Comparator<Student>() {
-            public int compare(Student a, Student b) {
-                if (a.getName() < b.getName()) return -1;
-                if (a.getName() > b.getName()) return 1;
-                return 0;
-            }
-        };
 }
 
 class Undergraduate extends Student
