@@ -79,8 +79,9 @@ abstract class Student
 
     Comparator<Student> topKName = new Comparator<Student>() {
             public int compare(Student a, Student b) {
-                if (a.getName() - b.getName() < 0) return -1;
-                if (a.getName() - b.getName() > 0) return 1;
+                if (a.getName() < b.getName()) return -1;
+                if (a.getName() > b.getName()) return 1;
+                return 0;
             }
         };
 }
