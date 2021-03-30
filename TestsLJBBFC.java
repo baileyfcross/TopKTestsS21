@@ -17,7 +17,11 @@ public class TestsLJBBFC
     public static void main(String args[]) {
         TopK<Integer> thebest = new TopKJDTRefSol<Integer>(5, Comparator.naturalOrder());
         TopK<String> thebestString = new TopKJDTRefSol<String>(3, Comparator.naturalOrder());
-        //TopK<Student> thebestAnimal = new TopKJDTRefSol<Student>(3, topKWeight);
+        TopK<Animal> thebestAnimal = new TopKJDTRefSol<Animal>(7, new Comparator<Animal>() {
+                    public int compare(Animal a, Animal b) {
+                        return a.numLegs() - b.numLegs();
+                    }
+                });
 
         //Integer
         thebest.add(5);
@@ -32,6 +36,7 @@ public class TestsLJBBFC
         thebest.add(0);
         thebest.add(3);
         System.out.println("After adding 10 entries for Integer: " + thebest);
+        System.out.println();
 
         //String
         thebestString.add("L");
@@ -46,87 +51,74 @@ public class TestsLJBBFC
         thebestString.add("P");
         thebestString.add("H");
         System.out.println("After clearing, repopulating with 6 entries for String: " + thebestString);
+        System.out.println();
 
         //Animal
-        //thebestAnimal.setWeight(2.2);
+        thebestAnimal.add(new Animal("Dog", 4, 10.1));
+        thebestAnimal.add(new Animal("Spider", 8, 0.03));
+        thebestAnimal.add(new Animal("Pig", 4, 36.5));
+        System.out.println("With 3 entries for Animal: " + thebestAnimal);
+        thebestAnimal.add(new Animal("Snake", 0, 0.5));
+        thebestAnimal.add(new Animal("Kangaroo", 2, 96.3));
+        thebestAnimal.add(new Animal("Bee", 6, 0.3));
+        thebestAnimal.add(new Animal("Centipede", 100, 0.13));
+        System.out.println("With 5 entries for Animal: " + thebestAnimal);
     }
 }
 
-/* The class is declared as abstract to indicate that it will include
- * one or more abstract methods.
- */
-abstract class Student
-{
-    protected String name = "Fred";
+class Animal {
 
-    /* any class that extends Student will be required to implement this method */
-    protected abstract void getName();
+    // the variable that was in all classes is moved into this abstract class
+    private String species;
+    private int numLegs;
+    private double weight;
 
-    /* and we'll provide a method everyone will inherit also */
-    public void setName(String newName) {
-
-        name = newName;
+    public Animal(String species, int numLegs, double weight) {
+        this.species = species;   
+        this.numLegs = numLegs;
+        this.weight = weight;
     }
 
-}
+    /**
+    Return the species of the type of animal.
+    @return the species of the type of animal.
+     */
+    public String species() {
+        return species;   
+    }
 
-class Undergraduate extends Student
-{
+    /**
+    Return the number of legs that members of this
+    species should have.
+    @return the number of legs that members of this
+    species should have
+     */
+    public int numLegs() {
+        return numLegs;   
+    }
+
+    /**
+    Set the weight of this animal
+
+    @param newWeight the new weight of the animal
+     */
+    public void setWeight(double newWeight) {
+
+        weight = newWeight;
+    }
+
+    /**
+    Get the weight of the animal
+
+    @return the weight of the animal
+     */
+    public double getWeight() {
+
+        return weight;
+    }
+    
     @Override
-    protected void getName()
-    {
-        System.out.println("Undergraduate : " + name);
-    }
-} 
-
-class Freshman extends Undergraduate
-{
-}
-
-class Graduate extends Student
-{
-    @Override
-    protected void getName()
-    {
-        System.out.println("Graduate : " + name);
-    }
-
-}
-
-class Phd extends Graduate
-{
-    @Override
-    protected void getName()
-    {
-        System.out.println("Phd : " + name);
-    }
-}
-
-class AbstractClass
-{
-
-    public static void main(String[] args) 
-    {
-        // populate an ArrayList with Student objects and instances of derived classes
-        ArrayList<Student> students = new ArrayList<>();
-        // this will not be allowed, since we cannot instantiate an abstract class
-        //students.add(new Student());
-        students.add(new Undergraduate());
-        students.add(new Freshman());
-        students.add(new Graduate());
-        students.add(new Phd());
-
-        // any Student object can call setName
-        students.get(0).setName("Mary");
-        students.get(1).setName("Don");
-        students.get(2).setName("Alice");
-
-        // let's call each one's getName method, which each Student is
-        // guaranteed to have, even though class Student doesn't provide one.
-        for (Student s : students) {
-
-            s.getName();
-        }
-
+    public String toString() {
+        return species + " with " + numLegs + " and a weight of " + weight + " pounds.";
     }
 }
